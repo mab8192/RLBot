@@ -1,6 +1,7 @@
 import math
 from typing import Union
 
+import numpy as np
 from rlbot.utils.structures.game_data_struct import Vector3
 
 
@@ -107,3 +108,9 @@ class Vec3:
         """Returns the angle to the ideal vector. Angle will be between 0 and pi."""
         cos_ang = self.dot(ideal) / (self.length() * ideal.length())
         return math.acos(cos_ang)
+
+    def jitter(self, mu: float, std: float) -> 'Vec3':
+        """Return a copy of this vector with some random jiter applied to its components"""
+        return Vec3(self.x + np.random.normal(mu, std),
+                    self.y + np.random.normal(mu, std),
+                    self.z + np.random.normal(mu, std))
